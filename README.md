@@ -86,7 +86,14 @@ Before you begin, ensure you have the following:
    nano /etc/hashcatch/hashcatch.conf
    ```
 
-7. **Create directories for handshakes  (repeat this step every antenna needs its own folder and config named accordingly):**
+7. **Place the scripts you need from this repo in the "/" directory and set permissions:**
+
+   ```bash
+   cd /
+   sudo chmod +x /*.sh
+   ```
+
+8. **Create directories for handshakes  (repeat this step every antenna needs its own folder and config named accordingly):**
 
    ```bash
    cd /
@@ -94,39 +101,39 @@ Before you begin, ensure you have the following:
    nano handshakes2/2.conf
    ```
 
-8. **Run second**\_pwn.sh setup (repeat this step for every antenna, e.g., **second\_pwn2.sh --setup):**
+9. **Run second**\_pwn.sh setup (repeat this step for every antenna, e.g., **second\_pwn2.sh --setup):**
 
    ```bash
    sudo second_pwn.sh --setup
    sudo second_pwn.sh #can be closed instantly, it's just to test if it's set up correctly
    ```
 
-9. **Create systemd service for automation (repeat this step every antenna needs its own service or use and enable the premade service files):**
+10. **Create systemd service for automation (repeat this step every antenna needs its own service or use and enable the premade service files):**
 
-   ```bash
-   sudo nano /etc/systemd/system/second_pwn.service
-   ```
+```bash
+sudo nano /etc/systemd/system/second_pwn.service
+```
 
-   **Content:**
+**Content:**
 
-   ```
-   [Unit]
-   Description=Secondary Pwn Script
-   After=network.target
+```
+[Unit]
+Description=Secondary Pwn Script
+After=network.target
 
-   [Service]
-   Type=simple
-   ExecStart=/bin/bash /second_pwn.sh
-   Restart=always
-   RestartSec=5
-   User=root
-   Group=root
+[Service]
+Type=simple
+ExecStart=/bin/bash /second_pwn.sh
+Restart=always
+RestartSec=5
+User=root
+Group=root
 
-   [Install]
-   WantedBy=multi-user.target
-   ```
+[Install]
+WantedBy=multi-user.target
+```
 
-10. **Enable and start the service:**
+11. **Enable and start the service:**
 
     ```bash
     sudo systemctl daemon-reload
@@ -136,23 +143,26 @@ Before you begin, ensure you have the following:
     orkingsudo journalctl -fu second_pwn.service  #optional just to check if its working
     ```
 
-11. **Enable plugins in Pwnagotchi:**
+12. **Enable plugins in Pwnagotchi:**
 
     - Place the required plugin(s) in the Pwnagotchi custom plugins folder:
 
       ```bash
-      /usr/local/src/pwnagotchi/custom_plugins/
+      /usr/local/share/pwnagotchi/custom_plugins/
       ```
 
-    - Enable the plugins by adding them to the Pwnagotchi config.toml or enabling them in the web-ui.
+    - Enable the plugins by adding them to the Pwnagotchi config:
+
+      ```bash
+      nano /etc/pwnagotchi/config.toml
+      ```
 
     - Optionally, use `tweak_view` to adjust the UI labels for better visibility.
 
 ## Usage
 
 - Once Exo-Pwn is running, monitor the output to ensure handshakes are being captured.
-- The plugins display the pcap count of each "Head" aswell as the total count. if an antenna isnt connected or the service isnt working correctly for some unknown reason the plugin(s) will display "Head: X".
-- Adjust adapter configurations as needed for optimal performance (optional but depending on the adapters used you could turn down the TX strength a bit to prevent bad pcaps due to interference).
+- Adjust adapter configurations as needed for optimal performance.
 
 ## Troubleshooting
 
