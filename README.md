@@ -164,11 +164,12 @@ Before you begin, ensure you have the following:
 
 Feel free to open issues and pull requests to improve Exo-Pwn. Contributions are always welcome!
 
-## License
+# Project Notice
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This repository and its associated script are **heavily based on** [hashcatch](https://github.com/staz0t/hashcatch).  
+Until the integration with **AngryOxide** has been thoroughly tested and validated, the current implementation relies significantly on hashcatch's original functionality.  
 
----
+We appreciate the work done by the original developers of hashcatch and will continue refining the integration to enhance performance and reliability.  
 
 **Remember:** Always use Exo-Pwn responsibly and within legal boundaries.
 
